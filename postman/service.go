@@ -6,7 +6,7 @@ import (
 	"github.com/fsnotify/fsnotify"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/viper"
-	"io/ioutil"
+	// "io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -15,6 +15,8 @@ import (
 
 //todo may not use global variable
 var mocks map[string]Mock
+
+
 
 
 func StartServer() {
@@ -26,7 +28,7 @@ func StartServer() {
 	}
 
 	log.Info().Msg("total " + strconv.Itoa(len(mocks)) + " mocks found")
-	http.HandleFunc("/updatecollections", reloadCollectionHandler)
+	http.HandleFunc("/update", reloadCollectionHandler)
 
 	log.Info().Msg("Startup mock server....")
 	createServer()
@@ -63,21 +65,24 @@ func createServer(){
 
 
 func reloadCollectionHandler(w http.ResponseWriter, r *http.Request){
-	if HttpMethod(r.Method) == POST {
-		bodyBytes, err := ioutil.ReadAll(r.Body)
-		if err != nil || bodyBytes == nil{
-			mocks, err = GetMocksFromPostman()
-			log.Debug().Msg("Reload mocks from Postman")
-		} else {
-			log.Warn().Msg("Get empty reload command - fetch mocks from postman")
-			mocks = parsePostmanCollectionMock(bodyBytes)
-		}
-	}
-
+	// if HttpMethod(r.Method) == POST {
+	// 	bodyBytes, err := ioutil.ReadAll(r.Body)
+	// 	if err != nil || bodyBytes == nil{
+	// 		mocks, err = GetMocksFromPostman()
+	// 		log.Debug().Msg("Reload mocks from Postman")
+	// 	} else {
+	// 		log.Warn().Msg("Get empty reload command - fetch mocks from postman")
+	// 		mocks = parsePostmanCollectionMock(bodyBytes)
+	// 	}
+	
+	mocks, err := GetMocksFromPostman()
+	_ = err
+	_ = mocks
 	w.WriteHeader(200)
+	w.Write([]byte("Updated"))
 }
 
-func  postmanRouter(w http.ResponseWriter, r *http.Request) {
+func postmanRouter(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 	if  HttpMethod(r.Method) == OPTIONS {
 		handleOptionsRequest(&w)
@@ -90,6 +95,25 @@ func  postmanRouter(w http.ResponseWriter, r *http.Request) {
 	}
 	path := strings.ToLower(r.Method + urlDecoded)
 	log.Trace().Msg("requested path: " + path)
+	log.Trace().Msg("Mocks: ")
+	log.Trace().Msg(fmt.Sprintf("%v", mocks))
+	keys := make([]string, len(mocks))
+
+	i := 0
+	for k1 := range mocks {
+	  keys[i] = k1
+	  fmt.Println(k1)
+	  i++
+	}
+	
+	if i == 0 {
+		mocks, err = GetMocksFromPostman()
+		_ = err
+		_ = mocks
+	} else {
+		log.Warn().Msg("mocks is not empty")
+	}
+	
 	if mock, ok := mocks[path]; ok {
 		w.Header().Set("Content-Type", "application/json")
 		for _, header := range mock.Header {

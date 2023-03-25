@@ -45,26 +45,28 @@ func getCollections()(Collections, error) {
 }
 
 func GetMocksFromPostman() (map[string]Mock, error){
-	log.Debug().Msg("load collections from postman...")
-	collections, err := getCollections()
-	if err != nil {
-		return map[string]Mock{}, err
-	}
+	log.Debug().Msg("load single collection from postman...")
+	collection, err :=  getCollection(viper.GetString("postman.collectionId"))
 	mocks := make(map[string]Mock)
-	for _, collectionOverview  := range collections.Collections {
-		if len(viper.GetStringSlice("postman.collections")) != 0 && strings.ToLower(viper.GetStringSlice("postman.collections")[0]) != "all" {
-			if !isIdInList(viper.GetStringSlice("postman.collections"), collectionOverview.UID) {
-				continue
-			}
-		}
-		//todo make this stuff concurrent
-		collection, err :=  getCollection(collectionOverview.UID)
-		if err != nil {
-			log.Error().Msg("error get mock for collection " + collectionOverview.UID + " this collection would be skipped")
-		}
-		for i := 0; i < len(collection.Collection.Item); i++ {
-			mocks = appendMap(mocks, getAllRequest(collection.Collection.Item[i], 0))
-		}
+	if err != nil {
+		log.Error().Msg("error get mock for collection " + viper.GetString("postman.collectionId") + " this collection would be skipped")
+		log.Error().Msg(err.Error())
+	}
+	for i := 0; i < len(collection.Collection.Item); i++ {
+		requests := getAllRequest(collection.Collection.Item[i], 0)
+		mocks = appendMap(mocks, requests)
+		// Print item name
+
+		// log.Trace().Msg(fmt.Sprintf("%v", mocks))
+		// keys := make([]string, len(mocks))
+
+		// i := 0
+		// for k1 := range mocks {
+		// 	keys[i] = k1
+		// 	fmt.Println(k1)
+		// 	i++
+		// }	
+		// log.Debug().Msg("[" +  "] " + collection.Collection.Item[i].Name)
 	}
 	return mocks, nil
 }
@@ -99,8 +101,9 @@ func requestPostman(path string, method string, body io.Reader) (string, error) 
 		return "", fmt.Errorf("postman token is not present in config, please check config file")
 	}
 	request, err := http.NewRequest(method, fullUrl.String() + path, body)
+	// log.Debug().Msg("request to postman: " + fullUrl.String() + path)
 	request.Header.Set("Accept", "application/json")
-	request.Header.Set("X-Api-Key", viper.GetString("postman.token"))
+	// request.Header.Set("X-Api-Key", viper.GetString("postman.token"))
 	response, err := client.httpClient.Do(request)
 	defer response.Body.Close()
 	if response.StatusCode != http.StatusOK {

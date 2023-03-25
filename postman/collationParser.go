@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"os"
 	"strings"
+	"fmt"
 
 )
 
@@ -38,13 +39,16 @@ func parsePostmanCollectionMock(payload []byte)map[string]Mock{
 
 
 func getAllRequest(item item, level int) map[string]Mock{
-	log.Trace().Msg("Mock: " + strings.Repeat(" ", level)  + item.Name)
+	// log.Trace().Msg("Mock: " + strings.Repeat(" ", level)  + item.Name)
 	mocks := make(map[string]Mock)
 	mocks = appendMap(mocks, getMocks(item.Response))
 
 	for n := 0; n < len(item.Item); n++ {
 		mocks = appendMap(mocks, getAllRequest(item.Item[n], level + 1))
 	}
+	// fmt.Printf("%+v\n", mocks)
+
+
 	return mocks
 }
 
@@ -58,7 +62,8 @@ func getMocks(responses []respone) map[string]Mock{
 			Body: responses[i].Body,
 			Header: Map(responses[i].Header, parseHeaders),
 		}
-
+		// Print
+		log.Trace().Msg(fmt.Sprintf("%s", strings.ToLower(responses[i].OriginalRequest.Method + responses[i].OriginalRequest.URL.Raw)))
 		mocks[strings.ToLower(responses[i].OriginalRequest.Method + responses[i].OriginalRequest.URL.Raw)] = mock
 	}
 	return mocks

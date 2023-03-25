@@ -1,18 +1,18 @@
 #Excample config file
 name: "test"
 logging:
-  level: "info"
+  level: "trace"
   jsonLogging: false
 #static mode for serve from a static file. Online mode to catch online the mock configuration
-mode: "static"
+mode: "online"
 port: 8080
 listenHost: "0.0.0.0"
+# https://api.postman.com/collections/26072762-1b77f8e7-6182-4673-8b34-33d576a7ec1b?access_key=PMAT-01GWAFYMGE7GNPWFG9B348RPTB
 postman:
-  token: ""
-  url: "https://api.getpostman.com/"
+  token: "bob"
+  url: "https://api.postman.com"
   #use the keyword 'all' to load all collections to the PMS or use the UID of the collection(s) (as list) with the collections you like to load
-  collections:
-    - "all"
+  collectionId: "26072762-1b77f8e7-6182-4673-8b34-33d576a7ec1b?access_key=PMAT-01GWAFYMGE7GNPWFG9B348RPTB"
 #############################################################################
   # this configuration only suits if postman mock is started in static mode
 static:

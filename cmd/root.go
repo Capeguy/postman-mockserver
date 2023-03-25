@@ -33,10 +33,12 @@ var port int
 var rootCmd = &cobra.Command{
 	Use:   "postman-mockserver",
 	Run: func(cmd *cobra.Command, args []string) {
-		if viper.GetString("mode") == "online" {
+		// if viper.GetString("mode") == "online" {
+			// Print that we are running in online mode
+			fmt.Println("Running in online mode")
 			postman.StartServer()
-		}
-		postman.StartServerFromStaticFile()
+		// }
+		// postman.StartServerFromStaticFile()
 	},
 }
 
