@@ -16,12 +16,9 @@ import (
 //todo may not use global variable
 var mocks map[string]Mock
 
-
-
-
 func StartServer() {
 	var err error
-	mocks, err := GetMocksFromPostman()
+	GetMocksFromPostman()
 	if err != nil{
 		log.Error().Msg("error in get postman collection " + err.Error())
 		return
@@ -65,19 +62,7 @@ func createServer(){
 
 
 func reloadCollectionHandler(w http.ResponseWriter, r *http.Request){
-	// if HttpMethod(r.Method) == POST {
-	// 	bodyBytes, err := ioutil.ReadAll(r.Body)
-	// 	if err != nil || bodyBytes == nil{
-	// 		mocks, err = GetMocksFromPostman()
-	// 		log.Debug().Msg("Reload mocks from Postman")
-	// 	} else {
-	// 		log.Warn().Msg("Get empty reload command - fetch mocks from postman")
-	// 		mocks = parsePostmanCollectionMock(bodyBytes)
-	// 	}
-	
-	mocks, err := GetMocksFromPostman()
-	_ = err
-	_ = mocks
+	GetMocksFromPostman()
 	w.WriteHeader(200)
 	w.Write([]byte("Updated"))
 }
@@ -107,9 +92,7 @@ func postmanRouter(w http.ResponseWriter, r *http.Request) {
 	}
 	
 	if i == 0 {
-		mocks, err = GetMocksFromPostman()
-		_ = err
-		_ = mocks
+		GetMocksFromPostman()
 	} else {
 		log.Warn().Msg("mocks is not empty")
 	}

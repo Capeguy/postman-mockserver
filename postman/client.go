@@ -47,7 +47,7 @@ func getCollections()(Collections, error) {
 func GetMocksFromPostman() (map[string]Mock, error){
 	log.Debug().Msg("load single collection from postman...")
 	collection, err :=  getCollection(viper.GetString("postman.collectionId"))
-	mocks := make(map[string]Mock)
+	mocks = make(map[string]Mock)
 	if err != nil {
 		log.Error().Msg("error get mock for collection " + viper.GetString("postman.collectionId") + " this collection would be skipped")
 		log.Error().Msg(err.Error())
