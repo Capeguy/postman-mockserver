@@ -3,19 +3,21 @@ package postman
 import (
 	"encoding/json"
 	"fmt"
-	. "github.com/dvincenz/postman-mockserver/common"
-	"github.com/rs/zerolog/log"
-	"github.com/spf13/viper"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"os/exec"
 	"strings"
+
+	. "github.com/dvincenz/postman-mockserver/common"
+	"github.com/rs/zerolog/log"
+	"github.com/spf13/viper"
 )
 
 type Client struct {
-	BaseURL   *url.URL
-	UserAgent string
+	BaseURL    *url.URL
+	UserAgent  string
 	httpClient *http.Client
 }
 
@@ -25,12 +27,26 @@ func getCollection(collectionId string) (postmanCollection, error) {
 		return postmanCollection{}, err
 	}
 	var postmanCollection = postmanCollection{}
+	substr := "\"info\""
+	pos := strings.Index(responseJson, substr)
+	updatedJson := responseJson[pos:]
+	updatedJson = updatedJson[:len(updatedJson)-1]
+	updatedJson = "{" + updatedJson
+	ioutil.WriteFile("./swaggerui/postman.json", []byte(updatedJson), 0644)
+	// command := "./postman2openapi ./swaggerui/postman.json"
+	// cmd := exec.Command(command)
+	cmd := exec.Command("./postman2openapi", "-f", "json", "./swaggerui/postman.json")
+	cmd.Dir = "/workspace/postman-mockserver/"
+	out, err2 := cmd.CombinedOutput()
+	if err2 != nil {
+		fmt.Printf("cmd.Run() failed with %s\n", err2)
+	}
+	ioutil.WriteFile("./swaggerui/swagger.json", out, 0644)
 	json.Unmarshal([]byte(responseJson), &postmanCollection)
-
 	return postmanCollection, err
 }
 
-func getCollections()(Collections, error) {
+func getCollections() (Collections, error) {
 	responseJson, err := getFromPostman("/collections")
 	if err != nil {
 		return Collections{}, err
@@ -44,9 +60,9 @@ func getCollections()(Collections, error) {
 	return postmanCollections, nil
 }
 
-func GetMocksFromPostman() (map[string]Mock, error){
+func GetMocksFromPostman() (map[string]Mock, error) {
 	log.Debug().Msg("load single collection from postman...")
-	collection, err :=  getCollection(viper.GetString("postman.collectionId"))
+	collection, err := getCollection(viper.GetString("postman.collectionId"))
 	mocks = make(map[string]Mock)
 	if err != nil {
 		log.Error().Msg("error get mock for collection " + viper.GetString("postman.collectionId") + " this collection would be skipped")
@@ -65,7 +81,7 @@ func GetMocksFromPostman() (map[string]Mock, error){
 		// 	keys[i] = k1
 		// 	fmt.Println(k1)
 		// 	i++
-		// }	
+		// }
 		// log.Debug().Msg("[" +  "] " + collection.Collection.Item[i].Name)
 	}
 	return mocks, nil
@@ -80,8 +96,7 @@ func isIdInList(list []string, id string) bool {
 	return false
 }
 
-
-func getFromPostman (path string) (string, error){
+func getFromPostman(path string) (string, error) {
 	return requestPostman(path, "GET", nil)
 }
 
@@ -100,7 +115,7 @@ func requestPostman(path string, method string, body io.Reader) (string, error) 
 	if viper.GetString("postman.token") == "" {
 		return "", fmt.Errorf("postman token is not present in config, please check config file")
 	}
-	request, err := http.NewRequest(method, fullUrl.String() + path, body)
+	request, err := http.NewRequest(method, fullUrl.String()+path, body)
 	// log.Debug().Msg("request to postman: " + fullUrl.String() + path)
 	request.Header.Set("Accept", "application/json")
 	// request.Header.Set("X-Api-Key", viper.GetString("postman.token"))

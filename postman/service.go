@@ -2,10 +2,12 @@ package postman
 
 import (
 	"fmt"
+
 	. "github.com/dvincenz/postman-mockserver/common"
 	"github.com/fsnotify/fsnotify"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/viper"
+
 	// "io/ioutil"
 	"net/http"
 	"net/url"
@@ -13,13 +15,13 @@ import (
 	"strings"
 )
 
-//todo may not use global variable
+// todo may not use global variable
 var mocks map[string]Mock
 
 func StartServer() {
 	var err error
 	GetMocksFromPostman()
-	if err != nil{
+	if err != nil {
 		log.Error().Msg("error in get postman collection " + err.Error())
 		return
 	}
@@ -31,7 +33,7 @@ func StartServer() {
 	createServer()
 }
 
-func StartServerFromStaticFile(){
+func StartServerFromStaticFile() {
 	path := viper.GetString("static.path")
 	LoadStaticPostmanCollection(path)
 	log.Info().Msg("total " + strconv.Itoa(len(mocks)) + " mocks found")
@@ -40,28 +42,27 @@ func StartServerFromStaticFile(){
 			createServer()
 		}()
 		fileWatcher(LoadStaticPostmanCollection, path)
-	}else{
+	} else {
 		createServer()
 	}
 }
 
-func LoadStaticPostmanCollection(path string){
+func LoadStaticPostmanCollection(path string) {
 	mocks = readPostmanFile(path)
 }
 
-
-
-func createServer(){
+func createServer() {
 	port := strconv.Itoa(viper.GetInt("port"))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		postmanRouter(w, r)
 	})
-	log.Info().Msg("start to listen http://" + viper.GetString("listenHost") + ":"+ port)
-	http.ListenAndServe(viper.GetString("listenHost") + ":" +  port, nil)
+	fs := http.FileServer(http.Dir("./swaggerui"))
+	http.Handle("/swaggerui/", http.StripPrefix("/swaggerui/", fs))
+	log.Info().Msg("start to listen http://" + viper.GetString("listenHost") + ":" + port)
+	http.ListenAndServe(viper.GetString("listenHost")+":"+port, nil)
 }
 
-
-func reloadCollectionHandler(w http.ResponseWriter, r *http.Request){
+func reloadCollectionHandler(w http.ResponseWriter, r *http.Request) {
 	GetMocksFromPostman()
 	w.WriteHeader(200)
 	w.Write([]byte("Updated"))
@@ -69,7 +70,7 @@ func reloadCollectionHandler(w http.ResponseWriter, r *http.Request){
 
 func postmanRouter(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
-	if  HttpMethod(r.Method) == OPTIONS {
+	if HttpMethod(r.Method) == OPTIONS {
 		handleOptionsRequest(&w)
 		return
 	}
@@ -86,17 +87,17 @@ func postmanRouter(w http.ResponseWriter, r *http.Request) {
 
 	i := 0
 	for k1 := range mocks {
-	  keys[i] = k1
-	  fmt.Println(k1)
-	  i++
+		keys[i] = k1
+		fmt.Println(k1)
+		i++
 	}
-	
+
 	if i == 0 {
 		GetMocksFromPostman()
 	} else {
 		log.Warn().Msg("mocks is not empty")
 	}
-	
+
 	if mock, ok := mocks[path]; ok {
 		w.Header().Set("Content-Type", "application/json")
 		for _, header := range mock.Header {
@@ -117,7 +118,7 @@ func postmanRouter(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func handleOptionsRequest(w * http.ResponseWriter){
+func handleOptionsRequest(w *http.ResponseWriter) {
 	(*w).Header().Set("Access-Control-Allow-Credentials", "true")
 	(*w).Header().Set("Access-Control-Allow-Headers", "content-type")
 	(*w).Header().Set("Access-Control-Allow-Methods:", "POST,PUT")
@@ -129,8 +130,7 @@ func enableCors(w *http.ResponseWriter) {
 	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 }
 
-
-func fileWatcher (executor func(path string), path string) {
+func fileWatcher(executor func(path string), path string) {
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
 		log.Fatal().Msgf("error: %s", err)

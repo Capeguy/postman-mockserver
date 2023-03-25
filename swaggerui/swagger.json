@@ -1,0 +1,2154 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "EMS v1.3",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "servers": [],
+  "paths": {
+    "/api/ems/event/list": {
+      "get": {
+        "summary": "EMS / Event / EMS / Event / Event List",
+        "description": "Returns event list:\n\n- All active events\n- Against a criteria passed\n- List of events for an EO",
+        "operationId": "emsEventEmsEventEventList",
+        "parameters": [
+          {
+            "name": "eo",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<Employee UUID from MDS>"
+            },
+            "description": "OPTIONAL - If passed, API will return only those events where the employee is EO"
+          },
+          {
+            "name": "startdate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<Event Start Date and Time>"
+            },
+            "description": "OPTIONAL"
+          },
+          {
+            "name": "enddate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<Event End Date and Time>"
+            },
+            "description": "OPTIONAL"
+          },
+          {
+            "name": "eventtype",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<Event Type>"
+            },
+            "description": "OPTIONAL: Possible values are: Official, Community"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EMS / Event / EMS / Event / 200 - My Event List",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / EMS / Event / 200 - My Event List": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / EMS / Event / 400 - My Event List",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / EMS / Event / 400 - My Event List": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / EMS / Event / 401 - My Event List",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / EMS / Event / 401 - My Event List": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ping": {
+      "get": {
+        "summary": "Ping",
+        "description": "Returns event list:\n\n- All active events\n- Against a criteria passed\n- List of events for an EO",
+        "operationId": "ping",
+        "responses": {
+          "200": {
+            "description": "Pong",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Pong": {
+                    "value": "Pong!!"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/detail": {
+      "get": {
+        "summary": "EMS / Event / Get Event Details",
+        "description": "Returns details for a specific event.",
+        "operationId": "emsEventGetEventDetails",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Event UUID>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EMS / Event / 200 - Get Event Details",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 200 - Get Event Details": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / 400 - Get Event Details",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 400 - Get Event Details": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / 401 - Get Event Details",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 401 - Get Event Details": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/create": {
+      "post": {
+        "summary": "EMS / Event / Create  Event",
+        "description": "Creates an event",
+        "operationId": "emsEventCreateEvent",
+        "requestBody": {
+          "content": {
+            "text/plain": {
+              "example": "object"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "EMS / Event / 200 - Create  Event",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 200 - Create  Event": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / 400 - Create  Event",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 400 - Create  Event": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / 401 - Create  Event",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 401 - Create  Event": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/update": {
+      "put": {
+        "summary": "EMS / Event / Update Event Details",
+        "description": "Updates details for a specific event.",
+        "operationId": "emsEventUpdateEventDetails",
+        "parameters": [
+          {
+            "name": "eventid",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Event UUID>"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "text/plain": {
+              "example": "object"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "EMS / Event / 200 - Update Event Details",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 200 - Update Event Details": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / 400 - Update Event Details",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 400 - Update Event Details": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / 401 - Update Event Details",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 401 - Update Event Details": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/search": {
+      "get": {
+        "summary": "EMS / Event / Search Events",
+        "description": "Search for events based on keywords.",
+        "operationId": "emsEventSearchEvents",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<Search Query>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EMS / Event / 200 - Search Events",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 200 - Search Events": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / 401 - Search Events",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 401 - Search Events": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/markfeatured": {
+      "put": {
+        "summary": "EMS / Event / Set or Unset Featured Event",
+        "description": "Set or Unset Featured Event.",
+        "operationId": "emsEventSetOrUnsetFeaturedEvent",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Event UUID>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EMS / Event / 200 - Set or Unset Featured Event",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 200 - Set or Unset Featured Event": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / 400 - Set or Unset Featured Event",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 400 - Set or Unset Featured Event": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / 401 - Set or Unset Featured Event",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 401 - Set or Unset Featured Event": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/publish": {
+      "put": {
+        "summary": "EMS / Event / Publish Event",
+        "description": "Publish a specific event.",
+        "operationId": "emsEventPublishEvent",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Event UUID>"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "text/plain": {
+              "example": "object"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "EMS / Event / 200 - Publish Event",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 200 - Publish Event": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / 400 - Publish Event",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 400 - Publish Event": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / 401 - Publish Event",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 401 - Publish Event": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/unpublish": {
+      "put": {
+        "summary": "EMS / Event / Unpublish Event",
+        "description": "Unpublish a specific event.",
+        "operationId": "emsEventUnpublishEvent",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Event UUID>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EMS / Event / 200 - Unpublish Event",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 200 - Unpublish Event": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / 400 - Unpublish Event",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 400 - Unpublish Event": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / 401 - Unpublish Event",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 401 - Unpublish Event": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/archive": {
+      "put": {
+        "summary": "EMS / Event / Archive Event",
+        "description": "Archive a specific event.",
+        "operationId": "emsEventArchiveEvent",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Event UUID>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EMS / Event / 200 - Archive Event",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 200 - Archive Event": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / 400 - Archive Event",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 400 - Archive Event": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / 401 - Archive Event",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 401 - Archive Event": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/recommended": {
+      "get": {
+        "summary": "EMS / Event / Recommended Events",
+        "description": "EMS / Event / Recommended Events",
+        "operationId": "emsEventRecommendedEvents",
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<Employee UUID from MDS>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EMS / Event / 200 - Recommended Events",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 200 - Recommended Events": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / 400 - Recommended Events",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 400 - Recommended Events": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / 401 - Recommended Events",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 401 - Recommended Events": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/related": {
+      "get": {
+        "summary": "EMS / Event / Related Events",
+        "description": "EMS / Event / Related Events",
+        "operationId": "emsEventRelatedEvents",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Event UUID>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EMS / Event / 200 - Related Events",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 200 - Related Events": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / 400 - Related Events",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 400 - Related Events": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / 401 - Related Events",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 401 - Related Events": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/cancel": {
+      "put": {
+        "summary": "EMS / Event / Cancel Event",
+        "description": "EMS / Event / Cancel Event",
+        "operationId": "emsEventCancelEvent",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Event UUID>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EMS / Event / 200 - Cancel Event",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 200 - Cancel Event": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / 400 - Cancel Event",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 400 - Cancel Event": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / 401 - Cancel Event",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 401 - Cancel Event": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/export": {
+      "post": {
+        "summary": "EMS / Event / Export Event",
+        "description": "EMS / Event / Export Event",
+        "operationId": "emsEventExportEvent",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Event UUID>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EMS / Event / 200 - Export Event",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 200 - Export Event": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / 400 - Export Event",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 400 - Export Event": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / 401 - Export Event",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / 401 - Export Event": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/attachment/attach": {
+      "put": {
+        "summary": "EMS / Event / Attachment / Upload Files",
+        "description": "EMS / Event / Attachment / Upload Files",
+        "operationId": "emsEventAttachmentUploadFiles",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "event": {
+                    "type": "string",
+                    "example": "<32 Char Event UUID>\n"
+                  },
+                  "filecontent": {
+                    "description": "multi-part file data",
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "filename\n": {
+                    "type": "string",
+                    "example": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "EMS / Event / Attachment / 200 - Upload Files",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Attachment / 200 - Upload Files": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / Attachment / 400 - Upload Files",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Attachment / 400 - Upload Files": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / Attachment / 401 - Upload Files",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Attachment / 401 - Upload Files": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "EMS / Event / Attachment / 403 - Upload Files",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Attachment / 403 - Upload Files": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "EMS / Event / Attachment / 409 - Upload Files",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Attachment / 409 - Upload Files": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/attachment/sftstatus": {
+      "get": {
+        "summary": "EMS / Event / Attachment / Get SFT Status",
+        "description": "Returns SFT status for all files attached to an event.",
+        "operationId": "emsEventAttachmentGetSftStatus",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Event UUID>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EMS / Event / Attachment / 200 - Get SFT Status",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Attachment / 200 - Get SFT Status": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / Attachment / 400 - Get SFT Status",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Attachment / 400 - Get SFT Status": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / Attachment / 401 - Get SFT Status",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Attachment / 401 - Get SFT Status": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/eo/add": {
+      "put": {
+        "summary": "EMS / Event / EO / Add EO",
+        "description": "EMS / Event / EO / Add EO",
+        "operationId": "emsEventEoAddEo",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Event UUID>"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "text/plain": {
+              "example": "object"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "EMS / Event / EO / 200 - Add EO",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / EO / 200 - Add EO": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / EO / 400 - Add EO",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / EO / 400 - Add EO": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / EO / 401 - Add EO",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / EO / 401 - Add EO": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "EMS / Event / EO / 403 - Add EO",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / EO / 403 - Add EO": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "EMS / Event / EO / 409 - Add EO",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / EO / 409 - Add EO": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/eo/remove": {
+      "delete": {
+        "summary": "EMS / Event / EO / Remove EO",
+        "description": "EMS / Event / EO / Remove EO",
+        "operationId": "emsEventEoRemoveEo",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Event UUID>"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "text/plain": {
+              "example": "object"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "EMS / Event / EO / 200 - Remove EO",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / EO / 200 - Remove EO": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / EO / 400 - Remove EO",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / EO / 400 - Remove EO": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / EO / 401 - Remove EO",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / EO / 401 - Remove EO": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "EMS / Event / EO / 403 - Remove EO",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / EO / 403 - Remove EO": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "EMS / Event / EO / 409 - Remove EO",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / EO / 409 - Remove EO": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/eo/list": {
+      "get": {
+        "summary": "EMS / Event / EO / List EO",
+        "description": "EMS / Event / EO / List EO",
+        "operationId": "emsEventEoListEo",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Event UUID>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EMS / Event / EO / 200 - List EO",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / EO / 200 - List EO": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / EO / 400 - List EO",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / EO / 400 - List EO": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / EO / 401 - List EO",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / EO / 401 - List EO": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/registration/bulk": {
+      "post": {
+        "summary": "EMS / Event / Registration / Bulk Registration",
+        "description": "EMS / Event / Registration / Bulk Registration",
+        "operationId": "emsEventRegistrationBulkRegistration",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "event": {
+                    "type": "string",
+                    "example": "<32 Char Event UUID>"
+                  },
+                  "filecontent": {
+                    "description": "multipart-file data",
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "EMS / Event / Registration / 200 - Bulk Registration",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Registration / 200 - Bulk Registration": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / Registration / 400 - Bulk Registration",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Registration / 400 - Bulk Registration": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / Registration / 401 - Bulk Registration",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Registration / 401 - Bulk Registration": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "EMS / Event / Registration / 403 - Bulk Registration",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Registration / 403 - Bulk Registration": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "EMS / Event / Registration / 409 - Bulk Registration",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Registration / 409 - Bulk Registration": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/registration/single": {
+      "post": {
+        "summary": "EMS / Event / Registration / Single Registration",
+        "description": "EMS / Event / Registration / Single Registration",
+        "operationId": "emsEventRegistrationSingleRegistration",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Event UUID>"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "text/plain": {
+              "example": "object"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "EMS / Event / Registration / 200 - Single Registration",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Registration / 200 - Single Registration": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / Registration / 400 - Single Registration",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Registration / 400 - Single Registration": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / Registration / 401 - Single Registration",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Registration / 401 - Single Registration": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/registration/withdraw": {
+      "put": {
+        "summary": "EMS / Event / Registration / Withdraw Registration",
+        "description": "EMS / Event / Registration / Withdraw Registration",
+        "operationId": "emsEventRegistrationWithdrawRegistration",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Event UUID>"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "text/plain": {
+              "example": "object"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "EMS / Event / Registration / 200 - Withdraw Registration",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Registration / 200 - Withdraw Registration": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / Registration / 400 - Withdraw Registration",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Registration / 400 - Withdraw Registration": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / Registration / 401 - Withdraw Registration",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Registration / 401 - Withdraw Registration": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/registration/generateticket": {
+      "post": {
+        "summary": "EMS / Event / Registration / Generate Event Ticket",
+        "description": "EMS / Event / Registration / Generate Event Ticket",
+        "operationId": "emsEventRegistrationGenerateEventTicket",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Event UUID>"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "text/plain": {
+              "example": "object"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "EMS / Event / Registration / 200 - Generate Event Ticket",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Registration / 200 - Generate Event Ticket": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / Registration / 400 - Generate Event Ticket",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Registration / 400 - Generate Event Ticket": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / Registration / 401 - Generate Event Ticket",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Registration / 401 - Generate Event Ticket": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/registration/waitliststatus": {
+      "get": {
+        "summary": "EMS / Event / Registration / Check Waitlist Status",
+        "description": "EMS / Event / Registration / Check Waitlist Status",
+        "operationId": "emsEventRegistrationCheckWaitlistStatus",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Event UUID>"
+            }
+          },
+          {
+            "name": "participantod",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Participant UUID>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EMS / Event / Registration / 200 - Check Waitlist Status",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Registration / 200 - Check Waitlist Status": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / Registration / 400 - Check Waitlist Status",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Registration / 400 - Check Waitlist Status": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / Registration / 401 - Check Waitlist Status",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Registration / 401 - Check Waitlist Status": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/registration/attendies": {
+      "get": {
+        "summary": "EMS / Event / Registration / List Attendies (Registered and Waitlist)",
+        "description": "EMS / Event / Registration / List Attendies (Registered and Waitlist)",
+        "operationId": "emsEventRegistrationListAttendiesRegisteredAndWaitlist",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Event UUID>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EMS / Event / Registration / 200 - List Attendies (Registered and Waitlist)",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Registration / 200 - List Attendies (Registered and Waitlist)": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / Registration / 400 - List Attendies (Registered and Waitlist)",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Registration / 400 - List Attendies (Registered and Waitlist)": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / Registration / 401 - List Attendies (Registered and Waitlist)",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Registration / 401 - List Attendies (Registered and Waitlist)": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/checkin/bulk": {
+      "put": {
+        "summary": "EMS / Event / Checkin / Event Check-in - Bulk",
+        "description": "EMS / Event / Checkin / Event Check-in - Bulk",
+        "operationId": "emsEventCheckinEventCheckInBulk",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Event UUID>"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "filecontent": {
+                    "description": "multi-part file data",
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "EMS / Event / Checkin / 200 - Event Check-in - Bulk",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Checkin / 200 - Event Check-in - Bulk": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / Checkin / 400 - Event Check-in - Bulk",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Checkin / 400 - Event Check-in - Bulk": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / Checkin / 401 - Event Check-in - Bulk",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Checkin / 401 - Event Check-in - Bulk": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/checkin/single": {
+      "put": {
+        "summary": "EMS / Event / Checkin / Event Check-in - Single",
+        "description": "EMS / Event / Checkin / Event Check-in - Single",
+        "operationId": "emsEventCheckinEventCheckInSingle",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Event UUID>"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "text/plain": {
+              "example": "object"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "EMS / Event / Checkin / 200 - Event Check-in - Single",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Checkin / 200 - Event Check-in - Single": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / Checkin / 400 - Event Check-in - Single",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Checkin / 400 - Event Check-in - Single": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / Checkin / 401 - Event Check-in - Single",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Checkin / 401 - Event Check-in - Single": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/feedback/submit": {
+      "post": {
+        "summary": "EMS / Event / Feedback / Submit Feedback",
+        "description": "EMS / Event / Feedback / Submit Feedback",
+        "operationId": "emsEventFeedbackSubmitFeedback",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Event UUID>"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "text/plain": {
+              "example": "object"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "EMS / Event / Feedback / 200 - Submit Feedback",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Feedback / 200 - Submit Feedback": {
+                    "value": ""
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / Feedback / 400 - Submit Feedback",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Feedback / 400 - Submit Feedback": {
+                    "value": ""
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / Feedback / 401 - Submit Feedback",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Feedback / 401 - Submit Feedback": {
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/feedback/list": {
+      "get": {
+        "summary": "EMS / Event / Feedback / List Feedback",
+        "description": "EMS / Event / Feedback / List Feedback",
+        "operationId": "emsEventFeedbackListFeedback",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Event UUID>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EMS / Event / Feedback / 200 - List Feedback",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Feedback / 200 - List Feedback": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / Feedback / 400 - List Feedback",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Feedback / 400 - List Feedback": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / Feedback / 401 - List Feedback",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Feedback / 401 - List Feedback": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/event/feedback/detail": {
+      "get": {
+        "summary": "EMS / Event / Feedback / Get Feedback Details",
+        "description": "EMS / Event / Feedback / Get Feedback Details",
+        "operationId": "emsEventFeedbackGetFeedbackDetails",
+        "parameters": [
+          {
+            "name": "feedbackid",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Feedback UUID>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EMS / Event / Feedback / 200 - Get Feedback Details",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Feedback / 200 - Get Feedback Details": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / Feedback / 400 - Get Feedback Details",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Feedback / 400 - Get Feedback Details": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / Feedback / 401 - Get Feedback Details",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Feedback / 401 - Get Feedback Details": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/tag/list": {
+      "get": {
+        "summary": "EMS / Event / Tag / List Tags",
+        "description": "EMS / Event / Tag / List Tags",
+        "operationId": "emsEventTagListTags",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<Search Query>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EMS / Event / Tag / 200 - List Tags",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Tag / 200 - List Tags": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / Tag / 400 - List Tags",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Tag / 400 - List Tags": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / Tag / 401 - List Tags",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Tag / 401 - List Tags": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/tag/detail": {
+      "get": {
+        "summary": "EMS / Event / Tag / Get Tag Details",
+        "description": "EMS / Event / Tag / Get Tag Details",
+        "operationId": "emsEventTagGetTagDetails",
+        "parameters": [
+          {
+            "name": "tagid",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Tag UUID>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EMS / Event / Tag / 200 - Get Tag Details",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Tag / 200 - Get Tag Details": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / Tag / 400 - Get Tag Details",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Tag / 400 - Get Tag Details": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / Tag / 401 - Get Tag Details",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Tag / 401 - Get Tag Details": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/tags/create": {
+      "post": {
+        "summary": "EMS / Event / Tag / Create Tag",
+        "description": "EMS / Event / Tag / Create Tag",
+        "operationId": "emsEventTagCreateTag",
+        "requestBody": {
+          "content": {
+            "text/plain": {
+              "example": "object"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "EMS / Event / Tag / 200 - Create Tag",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Tag / 200 - Create Tag": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / Tag / 400 - Create Tag",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Tag / 400 - Create Tag": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / Tag / 401 - Create Tag",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Tag / 401 - Create Tag": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "EMS / Event / Tag / 403 - Create Tag",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Tag / 403 - Create Tag": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "EMS / Event / Tag / 409 - Create Tag",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Tag / 409 - Create Tag": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/tags/delete": {
+      "delete": {
+        "summary": "EMS / Event / Tag / Delete Tag",
+        "description": "EMS / Event / Tag / Delete Tag",
+        "operationId": "emsEventTagDeleteTag",
+        "parameters": [
+          {
+            "name": "tagid",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<32 Char Tag UUID>"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "EMS / Event / Tag / 200 - Delete Tag",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Tag / 200 - Delete Tag": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / Tag / 400 - Delete Tag",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Tag / 400 - Delete Tag": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "EMS / Event / Tag / 403 - Delete Tag",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Tag / 403 - Delete Tag": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ems/venue/list": {
+      "get": {
+        "summary": "EMS / Event / Venue / List Venues",
+        "description": "List Venues from RBS.",
+        "operationId": "emsEventVenueListVenues",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "<Search Query>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EMS / Event / Venue / 200 - List Venues",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Venue / 200 - List Venues": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "EMS / Event / Venue / 400 - List Venues",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Venue / 400 - List Venues": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "EMS / Event / Venue / 401 - List Venues",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "EMS / Event / Venue / 401 - List Venues": {
+                    "value": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": []
+}
