@@ -35,7 +35,7 @@ func getCollection(collectionId string) (postmanCollection, error) {
 	ioutil.WriteFile("./swaggerui/postman.json", []byte(updatedJson), 0644)
 	// command := "./postman2openapi ./swaggerui/postman.json"
 	// cmd := exec.Command(command)
-	cmd := exec.Command("./postman2openapi", "-f", "json", "./swaggerui/postman.json")
+	cmd := exec.Command("postman2openapi", "-f", "json", "./swaggerui/postman.json")
 	cmd.Dir = "/workspace/postman-mockserver/"
 	out, err2 := cmd.CombinedOutput()
 	if err2 != nil {
