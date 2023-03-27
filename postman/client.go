@@ -35,13 +35,15 @@ func getCollection(collectionId string) (postmanCollection, error) {
 	ioutil.WriteFile("./swaggerui/postman.json", []byte(updatedJson), 0644)
 	// command := "./postman2openapi ./swaggerui/postman.json"
 	// cmd := exec.Command(command)
-	cmd := exec.Command("postman2openapi", "-f", "json", "./swaggerui/postman.json")
+	// cmd := exec.Command("postman2openapi", "-f", "json", "./swaggerui/postman.json")
+	cmd := exec.Command("p2o", "./swaggerui/postman.json", "-f", "./swaggerui/swagger.yml", "-o", "./swaggerui/options.json")
+
 	cmd.Dir = "/workspace/postman-mockserver/"
 	out, err2 := cmd.CombinedOutput()
 	if err2 != nil {
 		fmt.Printf("cmd.Run() failed with %s\n", err2)
 	}
-	ioutil.WriteFile("./swaggerui/swagger.json", out, 0644)
+	// ioutil.WriteFile("./swaggerui/swagger.yml", out, 0644)
 	json.Unmarshal([]byte(responseJson), &postmanCollection)
 	return postmanCollection, err
 }

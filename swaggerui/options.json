@@ -1,0 +1,10 @@
+{
+    "servers": [
+            {
+                    "url": "https://mock.api.ems.nsh.emq2.io"
+            },
+            {
+                    "url": "https://dev.api.ems.nsh.emq2.io"
+            }
+    ]
+}
